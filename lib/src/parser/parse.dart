@@ -620,8 +620,15 @@ class Parser {
       case 'e':
       // formula
       case 'str':
-        value = FormulaCellValue(_parseValue(node.findElements('v').first));
-        break;
+        { 
+          var formulaNode = node.findElements('f');
+          if (formulaNode.isNotEmpty) {
+            value = FormulaCellValue(_parseValue(formulaNode.first).toString());
+          } else {
+            value = FormulaCellValue(_parseValue(node.findElements('v').first));
+          }
+          break;
+        }
       // inline string
       case 'inlineStr':
         // <c r='B2' t='inlineStr'>
